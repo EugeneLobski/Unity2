@@ -5,29 +5,24 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    [SerializeField] private float _spawnDelay = 2f;
+    [SerializeField] const float _spawnDelay = 2f;
 
-    private float _timer = 0f;
     private Spawner[] _spawners;
-    private int spawnIndex = 0;
+    private WaitForSeconds _timer = new WaitForSeconds(_spawnDelay);
 
     private void Awake() {
         _spawners = gameObject.GetComponentsInChildren<Spawner>();
+        StartCoroutine(SpawnEnemy(_timer));
     }
-    
-    private void FixedUpdate()
-    {
-        if (_timer < _spawnDelay) {
-            _timer += Time.deltaTime;
-        } else {
-            _spawners[spawnIndex].CreateEnemy();
-            _timer = 0f;
 
-            if (spawnIndex < _spawners.Length - 1) {
-                spawnIndex++;
-            } else {
-                spawnIndex = 0;
+    private IEnumerator SpawnEnemy(WaitForSeconds delay)
+    {
+        while (true) {
+            foreach (Spawner spawner in _spawners) {
+                spawner.CreateEnemy();
+                yield return delay;
             }
+            yield return null;
         }
     }
 }

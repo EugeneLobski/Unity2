@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour {
-    [SerializeField] private GameObject _enemyPrefab;
+    [SerializeField] private Enemy _enemyPrefab;
    
     public void CreateEnemy() {
-        Instantiate(_enemyPrefab, transform.position, Quaternion.identity, transform);
+        Enemy newEnemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity, transform);
     }
 }

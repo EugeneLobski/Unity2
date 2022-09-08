@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class SpawnManger : MonoBehaviour
+public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private float _spawnDelay = 2f;
 
@@ -14,6 +14,7 @@ public class SpawnManger : MonoBehaviour
     private void Awake() {
         _spawners = gameObject.GetComponentsInChildren<Spawner>();
     }
+    
     private void FixedUpdate()
     {
         if (_timer < _spawnDelay) {
